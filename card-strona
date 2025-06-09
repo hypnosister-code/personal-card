@@ -1,0 +1,120 @@
+#!/bin/bash
+
+# Colors for terminal output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+SITE_NAME="hypnosister-card"
+APACHE_CONF="/etc/httpd/sites-available/$SITE_NAME.conf"
+APACHE_ENABLED="/etc/httpd/sites-enabled"
+HOSTS_FILE="/etc/hosts"
+HTTPD_CONF="/etc/httpd/conf/httpd.conf"
+
+start_server() {
+    echo -e "${GREEN}Starting Hypnosister Card website...${NC}"
+
+    # Check if Apache is installed
+    if ! command -v httpd &> /dev/null; then
+        echo -e "${RED}Apache is not installed. Installing...${NC}"
+        sudo pacman -Sy apache --noconfirm
+    fi
+
+    # Create Apache directories if they don't exist
+    sudo mkdir -p /etc/httpd/sites-available
+    sudo mkdir -p /etc/httpd/sites-enabled
+
+    # Create Apache configuration if it doesn't exist
+    if [ ! -f "$APACHE_CONF" ]; then
+        echo -e "${GREEN}Creating Apache configuration...${NC}"
+        sudo tee "$APACHE_CONF" > /dev/null <<EOL
+<VirtualHost *:80>
+    ServerName hypnosister-card
+    ServerAlias www.hypnosister-card
+    DocumentRoot /home/hypnosister/strona/card
+    <Directory /home/hypnosister/strona/card>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    ErrorLog /var/log/httpd/hypnosister-card-error.log
+    CustomLog /var/log/httpd/hypnosister-card-access.log combined
+</VirtualHost>
+EOL
+    fi
+
+    # Enable vhost by symlink
+    if [ ! -L "/etc/httpd/sites-enabled/$SITE_NAME.conf" ]; then
+        sudo ln -sf "$APACHE_CONF" "/etc/httpd/sites-enabled/$SITE_NAME.conf"
+    fi
+
+    # Ensure IncludeOptional is in httpd.conf
+    if ! grep -q "IncludeOptional sites-enabled/*.conf" "$HTTPD_CONF"; then
+        echo -e "${GREEN}Adding IncludeOptional to httpd.conf...${NC}"
+        echo "IncludeOptional sites-enabled/*.conf" | sudo tee -a "$HTTPD_CONF" > /dev/null
+    fi
+
+    # Add domain to hosts file if not present
+    if ! grep -q "hypnosister-card" "$HOSTS_FILE"; then
+        echo -e "${GREEN}Adding domain to hosts file...${NC}"
+        echo "127.0.0.1 hypnosister-card" | sudo tee -a "$HOSTS_FILE" > /dev/null
+    fi
+
+    # Set proper permissions
+    sudo chown -R $USER:http /home/hypnosister/strona/card
+    sudo chmod -R 755 /home/hypnosister/strona/card
+
+    # Restart Apache
+    sudo systemctl restart httpd
+
+    # Get public IP
+    PUBLIC_IP=$(curl -s ifconfig.me)
+    
+    echo -e "${GREEN}Website is now running!${NC}"
+    echo -e "Local access: http://hypnosister-card"
+    echo -e "Public access: http://$PUBLIC_IP"
+    echo -e "To make it accessible from the internet, make sure port 80 is forwarded on your router"
+}
+
+stop_server() {
+    echo -e "${RED}Stopping Hypnosister Card website...${NC}"
+    # Remove symlink to disable vhost
+    sudo rm -f "/etc/httpd/sites-enabled/$SITE_NAME.conf"
+    sudo systemctl restart httpd
+    echo -e "${RED}Website has been stopped${NC}"
+}
+
+# Create aliases for easy usage
+create_aliases() {
+    # Bash aliases
+    if ! grep -q "alias card=" ~/.bashrc 2>/dev/null; then
+        echo "# Hypnosister Card website aliases" >> ~/.bashrc
+        echo "alias card='bash /home/hypnosister/strona/card/card-strona start'" >> ~/.bashrc
+        echo "alias card-shutdown='bash /home/hypnosister/strona/card/card-strona stop'" >> ~/.bashrc
+        echo -e "${GREEN}Aliases for bash have been created. You can now use 'card' and 'card-shutdown' commands in bash.${NC}"
+    fi
+    # Fish aliases
+    FISH_CONFIG=~/.config/fish/config.fish
+    if [ -f "$FISH_CONFIG" ] && ! grep -q "alias card " "$FISH_CONFIG"; then
+        echo "# Hypnosister Card website aliases" >> "$FISH_CONFIG"
+        echo "alias card 'bash /home/hypnosister/strona/card/card-strona start'" >> "$FISH_CONFIG"
+        echo "alias card-shutdown 'bash /home/hypnosister/strona/card/card-strona stop'" >> "$FISH_CONFIG"
+        echo -e "${GREEN}Aliases for fish have been created. You can now use 'card' and 'card-shutdown' commands in fish.${NC}"
+    fi
+}
+
+case "$1" in
+    "start")
+        start_server
+        ;;
+    "stop")
+        stop_server
+        ;;
+    "install")
+        create_aliases
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|install}"
+        exit 1
+        ;;
+esac
