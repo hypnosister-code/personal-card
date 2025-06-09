@@ -1,49 +1,49 @@
-# Personal Card Website
+# Персональный сайт-визитка
 
-A modern, responsive personal card website with dark theme and bilingual support (English/Russian).
+Современный, адаптивный сайт-визитка с тёмной темой и поддержкой двух языков (английский/русский).
 
-[Live demo on GitHub Pages](https://hypnosister-code.github.io/personal-card/)
+[Демо на GitHub Pages](https://hypnosister-code.github.io/personal-card/)
 
-## Features
+## Возможности
 
-- Responsive design
-- Dark purple theme
-- Bilingual support (EN/RU)
-- Project showcase
-- News/updates section
-- Social media links
-- Retro-style interface
+- Адаптивный дизайн
+- Тёмная фиолетовая ретро-тема
+- Двуязычная поддержка (EN/RU)
+- Витрина проектов
+- Раздел новостей/обновлений
+- Ссылки на социальные сети
+- Интерфейс в ретро-стиле
 
-## Technologies Used
+## Используемые технологии
 
 - HTML5
 - CSS3
 - JavaScript
-- GitHub Pages (for hosting)
+- GitHub Pages (для хостинга)
 
-## Quick Start (GitHub Pages)
+## Быстрый старт (GitHub Pages)
 
-1. Fork or clone this repository:
+1. Форкните или клонируйте этот репозиторий:
 ```bash
 git clone https://github.com/hypnosister-code/personal-card.git
 cd personal-card
 ```
-2. Commit and push your changes:
+2. Зафиксируйте и отправьте свои изменения:
 ```bash
 git add .
 git commit -m "Update personal card website"
 git push
 ```
-3. Go to your repository settings on GitHub → Pages → set source to `main` branch and `/ (root)` or `/docs` folder.
-4. Your site will be available at:
+3. В настройках репозитория на GitHub → Pages → выберите источник `main` и `/ (root)` или папку `/docs`.
+4. Ваш сайт будет доступен по адресу:
 ```
 https://hypnosister-code.github.io/personal-card/
 ```
 
-## Local Development
+## Локальная разработка
 
-To preview locally, just open `index.html` in your browser.
+Для локального просмотра просто откройте `index.html` в браузере.
 
-## License
+## Лицензия
 
-MIT License - feel free to use this project as a template for your own personal card website.
+MIT License — используйте этот проект как шаблон для своего сайта-визитки.
