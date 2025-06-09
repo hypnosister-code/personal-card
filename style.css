@@ -34,8 +34,8 @@ body {
 
 /* --- SUBTLE RETRO NAVIGATION BAR --- */
 nav, .neon-nav {
-    background: linear-gradient(90deg, #3a006a 0%, #c9467b 100%);
-    border: 2px solid #8B5CF6;
+    background-color: rgba(0, 0, 0, 0.2); /* restored old background */
+    border: 2px solid #7c5fa3; /* more muted purple */
     border-radius: 10px;
     margin-bottom: 2rem;
     max-width: 800px;
@@ -49,15 +49,15 @@ nav, .neon-nav {
     padding: 1rem;
     position: relative;
     z-index: 10;
-    /* Subtle animated border */
-    animation: subtle-neon-border 3s linear infinite;
-    box-shadow: none;
+    animation: nav-border-fade 4s ease-in-out infinite;
+    box-shadow: 0 0 12px 0 rgba(124,95,163,0.10);
 }
 
-@keyframes subtle-neon-border {
-    0% { border-color: #8B5CF6; }
-    50% { border-color: #c9467b; }
-    100% { border-color: #8B5CF6; }
+@keyframes nav-border-fade {
+    0% { border-color: #7c5fa3; }
+    40% { border-color: #a18fc6; }
+    60% { border-color: #c9467b; }
+    100% { border-color: #7c5fa3; }
 }
 
 nav a, .neon-nav a {
@@ -73,17 +73,17 @@ nav a, .neon-nav a {
     font-weight: bold;
     margin: 0 0.2rem;
     position: relative;
-    transition: background 0.3s, color 0.3s, transform 0.2s;
-    text-shadow: none;
+    transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-shadow: 0 1px 4px rgba(124,95,163,0.15);
     box-shadow: none;
 }
 
 nav a:hover, .neon-nav a:hover, nav a.active, .neon-nav a.active {
-    background: linear-gradient(90deg, #c9467b 0%, #8B5CF6 100%);
+    background: linear-gradient(90deg, #7c5fa3 0%, #a18fc6 100%);
     color: #fff;
-    transform: scale(1.04) translateY(-2px);
-    text-shadow: none;
-    box-shadow: none;
+    transform: scale(1.06) translateY(-2px);
+    text-shadow: 0 2px 8px rgba(124,95,163,0.25);
+    box-shadow: 0 0 8px 0 rgba(124,95,163,0.18);
 }
 
 nav::before, .neon-nav::before, nav a::after, .neon-nav a::after {
