@@ -1,3 +1,6 @@
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
 /* Reset and base styles */
 * {
     margin: 0;
@@ -9,34 +12,36 @@
 body {
     /* Dark purple background */
     background-color: #2B1B2F;
-    color: #ffffff;
-    font-family: 'Courier New', monospace;
+    color: #fff;
+    font-family: 'Press Start 2P', 'VT323', 'Courier New', monospace;
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 2rem;
+    /* Subtle retro pixel pattern */
+    background-image: repeating-linear-gradient(135deg, rgba(124,95,163,0.04) 0 2px, transparent 2px 8px);
 }
 
 /* Container styles */
 .container {
     background-color: rgba(255, 255, 255, 0.05);
     padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
+    border-radius: 0;
+    box-shadow: 0 0 0 2px #7c5fa3, 0 0 30px rgba(0, 0, 0, 0.4);
     margin: 1rem auto;
     max-width: 800px;
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 3px double #7c5fa3;
     text-align: center;
+    font-family: 'VT323', 'Press Start 2P', monospace;
 }
 
 /* --- SUBTLE RETRO NAVIGATION BAR --- */
 nav, .neon-nav {
-    background-color: rgba(0, 0, 0, 0.2); /* restored old background */
-    border: 2px solid #7c5fa3; /* more muted purple */
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 3px double #7c5fa3;
+    border-radius: 0;
     margin-bottom: 2rem;
     max-width: 800px;
     margin-left: auto;
@@ -46,11 +51,13 @@ nav, .neon-nav {
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
-    padding: 1rem;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
     position: relative;
     z-index: 10;
     animation: nav-border-fade 4s ease-in-out infinite;
-    box-shadow: 0 0 12px 0 rgba(124,95,163,0.10);
+    box-shadow: 0 0 0 2px #2B1B2F, 0 0 12px 0 rgba(124,95,163,0.10);
+    font-family: 'Press Start 2P', 'VT323', monospace;
+    letter-spacing: 2px;
 }
 
 @keyframes nav-border-fade {
@@ -63,75 +70,65 @@ nav, .neon-nav {
 nav a, .neon-nav a {
     color: #fff;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0;
+    font-size: 1rem;
+    letter-spacing: 2px;
     text-transform: uppercase;
     background: rgba(0,0,0,0.10);
-    border: none;
+    border: 2px solid #7c5fa3;
     font-weight: bold;
     margin: 0 0.2rem;
     position: relative;
     transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
-    text-shadow: 0 1px 4px rgba(124,95,163,0.15);
-    box-shadow: none;
+    text-shadow: 1px 1px 0 #2B1B2F, 0 2px 8px rgba(124,95,163,0.15);
+    box-shadow: 2px 2px 0 #7c5fa3;
+    font-family: 'Press Start 2P', 'VT323', monospace;
 }
 
 nav a:hover, .neon-nav a:hover, nav a.active, .neon-nav a.active {
     background: linear-gradient(90deg, #7c5fa3 0%, #a18fc6 100%);
     color: #fff;
     transform: scale(1.06) translateY(-2px);
-    text-shadow: 0 2px 8px rgba(124,95,163,0.25);
-    box-shadow: 0 0 8px 0 rgba(124,95,163,0.18);
-}
-
-nav::before, .neon-nav::before, nav a::after, .neon-nav a::after {
-    display: none !important;
+    text-shadow: 2px 2px 0 #2B1B2F, 0 2px 8px rgba(124,95,163,0.25);
+    box-shadow: 2px 2px 0 #a18fc6, 0 0 8px 0 rgba(124,95,163,0.18);
 }
 
 /* Typography */
 h1, h2, h3 {
     color: #c9467b;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 0 #2B1B2F, 0 2px 8px rgba(124,95,163,0.15);
     margin-bottom: 1.5rem;
     letter-spacing: 2px;
     text-transform: uppercase;
+    font-family: 'Press Start 2P', 'VT323', monospace;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-}
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.1rem; }
+h3 { font-size: 1rem; }
 
-h2 {
-    font-size: 2rem;
-}
-
-h3 {
-    font-size: 1.5rem;
-}
-
-p {
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
+p, ul, li {
+    font-family: 'VT323', 'Press Start 2P', monospace;
     font-size: 1.1rem;
 }
 
 /* Cards */
 .card {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.07);
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 0;
     margin-bottom: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2.5px dashed #a18fc6;
+    box-shadow: 2px 2px 0 #7c5fa3;
+    transition: transform 0.3s, box-shadow 0.3s;
     text-align: center;
+    font-family: 'VT323', 'Press Start 2P', monospace;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 4px 4px 0 #c9467b, 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Lists */
